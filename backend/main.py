@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from backend.models import ExecuteRequest, ExecuteResponse
@@ -6,10 +7,14 @@ from backend.execution_engine import run_code
 
 app = FastAPI(title="GenCode API")
 
-# Allow all origins for the MVP
+# Configure CORS
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+ALLOWED_ORIGINS = [FRONTEND_URL, "http://localhost:3000"]
+# In production, FRONTEND_URL will be provided via Render environment variables
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
