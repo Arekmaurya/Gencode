@@ -1,6 +1,6 @@
 import subprocess
 import time
-from backend.models import ExecuteResponse
+from models import ExecuteResponse
 
 def run_code(code: str, problem_id: str) -> ExecuteResponse:
     # A simple MVP code execution placeholder

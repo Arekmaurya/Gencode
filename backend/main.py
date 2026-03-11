@@ -1,9 +1,9 @@
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from backend.models import ExecuteRequest, ExecuteResponse
-from backend.db import get_all_problems, get_problem_by_id
-from backend.execution_engine import run_code
+from models import ExecuteRequest, ExecuteResponse
+from db import get_all_problems, get_problem_by_id
+from execution_engine import run_code
 
 app = FastAPI(title="GenCode API")
 
