@@ -8,13 +8,10 @@ from execution_engine import run_code
 app = FastAPI(title="GenCode API")
 
 # Configure CORS
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-ALLOWED_ORIGINS = [FRONTEND_URL, "http://localhost:3000"]
-# In production, FRONTEND_URL will be provided via Render environment variables
-
+# For MVP, we'll allow all origins to ensure the frontend can always connect.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
