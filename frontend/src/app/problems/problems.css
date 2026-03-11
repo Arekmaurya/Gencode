@@ -1,0 +1,79 @@
+.problems-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.problems-list {
+  background: var(--glass-bg);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.list-header {
+  display: flex;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--glass-border);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.problem-row {
+  display: flex;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--glass-border);
+  transition: background-color 0.2s ease;
+  align-items: center;
+}
+
+.problem-row:last-child {
+  border-bottom: none;
+}
+
+.problem-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.col-title {
+  flex: 3;
+  font-weight: 500;
+}
+
+.problem-row .col-title {
+  color: var(--accent-color);
+}
+
+.col-difficulty {
+  flex: 1;
+}
+
+.col-status {
+  flex: 1;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.diff-easy { color: var(--success-color); }
+.diff-medium { color: #f59e0b; }
+.diff-hard { color: var(--error-color); }
+
+.loading-state {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-secondary);
+}
