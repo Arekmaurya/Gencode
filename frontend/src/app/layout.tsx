@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "GenCode | AI & ML LeetCode",
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <Navbar />
-        <main className="main-content">
-          {children}
-        </main>
+        <AuthProvider>
+          <Navbar />
+          <main className="main-content">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

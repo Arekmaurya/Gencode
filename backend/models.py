@@ -1,10 +1,19 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Text
+from database import Base
 
-class ExecuteRequest(BaseModel):
-    code: str
-    problem_id: str
+class User(Base):
+    __tablename__ = "users"
 
-class ExecuteResponse(BaseModel):
-    status: str # "pass", "fail", "error"
-    output: str
-    execution_time_ms: float
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+
+class Problem(Base):
+    __tablename__ = "problems"
+
+    id = Column(String, primary_key=True, index=True)
+    title = Column(String, index=True)
+    difficulty = Column(String)
+    description = Column(Text)
+    starting_code = Column(Text)

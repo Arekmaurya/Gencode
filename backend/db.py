@@ -1,36 +1,35 @@
-from typing import List
-from pydantic import BaseModel
+from sqlalchemy.orm import Session
+import models, schemas
 
-class Problem(BaseModel):
-    id: str
-    title: str
-    difficulty: str
-    description: str
-    starting_code: str
+def get_problem(db: Session, problem_id: str):
+    return db.query(models.Problem).filter(models.Problem.id == problem_id).first()
 
-# Mock database
-PROBLEMS = [
-    Problem(
-        id="1",
-        title="1. Implement Linear Regression Prediction",
-        difficulty="Easy",
-        description="Write a function `predict(x, w, b)` that computes the linear regression prediction $y = wx + b$.",
-        starting_code="def predict(x, w, b):\n    # Your code here\n    pass\n"
-    ),
-    Problem(
-        id="2",
-        title="2. Softmax Function",
-        difficulty="Medium",
-        description="Implement the softmax function `softmax(z)` which normalizes an array of values to a probability distribution.",
-        starting_code="import numpy as np\n\ndef softmax(z):\n    # Your code here\n    pass\n"
+def get_problems(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Problem).offset(skip).limit(limit).all()
+
+def create_problem(db: Session, problem: schemas.ProblemCreate, problem_id: str):
+    db_problem = models.Problem(**problem.dict(), id=problem_id)
+    db.add(db_problem)
+    db.commit()
+    db.refresh(db_problem)
+    return db_problem
+
+def get_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
+
+def get_user_by_username(db: Session, username: str):
+    return db.query(models.User).filter(models.User.username == username).first()
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()
+
+def create_user(db: Session, user: schemas.UserCreate, hashed_password: str):
+    db_user = models.User(
+        username=user.username,
+        email=user.email,
+        hashed_password=hashed_password
     )
-]
-
-def get_all_problems() -> List[Problem]:
-    return PROBLEMS
-
-def get_problem_by_id(problem_id: str) -> Problem | None:
-    for p in PROBLEMS:
-        if p.id == problem_id:
-            return p
-    return None
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
